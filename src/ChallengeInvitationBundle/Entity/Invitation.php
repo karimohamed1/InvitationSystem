@@ -22,12 +22,12 @@ class Invitation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\ChallengeUserBundle\Entity\user"), cascade={"persist"}
+     * @ORM\ManyToOne(targetEntity="\ChallengeUserBundle\Entity\User"), cascade={"persist"}
      */
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\ChallengeUserBundle\Entity\user"), cascade={"persist"}
+     * @ORM\ManyToOne(targetEntity="\ChallengeUserBundle\Entity\User"), cascade={"persist"}
      */
     private $invited;
 
@@ -45,6 +45,13 @@ class Invitation
      */
     private $date;
 
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return int
@@ -55,7 +62,7 @@ class Invitation
     }
 
     /**
-     * @param \ChallengeUserBundle\Entity\user $sender
+     * @param \ChallengeUserBundle\Entity\User $sender
      *
      */
     public function setSender($sender)
@@ -64,7 +71,7 @@ class Invitation
     }
 
     /**
-     * @return \ChallengeUserBundle\Entity\user
+     * @return \ChallengeUserBundle\Entity\User
      */
     public function getSender()
     {
@@ -72,7 +79,7 @@ class Invitation
     }
 
     /**
-     * @param \ChallengeUserBundle\Entity\user $invited
+     * @param \ChallengeUserBundle\Entity\User $invited
      *
      */
     public function setInvited($invited)
@@ -81,7 +88,7 @@ class Invitation
     }
 
     /**
-     * @return \ChallengeUserBundle\Entity\user
+     * @return \ChallengeUserBundle\Entity\User
      */
     public function getInvited()
     {
@@ -118,6 +125,11 @@ class Invitation
     public function getDate()
     {
         return $this->date;
+    }
+
+    public function __toString()
+    {
+        return $this->getSender().' is inviting '.$this->getInvited().' for a '.$this->getDescription();
     }
 }
 

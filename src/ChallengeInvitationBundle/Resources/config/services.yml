@@ -2,3 +2,9 @@ services:
 #    challenge_invitation.example:
 #        class: ChallengeInvitationBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    challenge_invitation.admin.invitation:
+        class: ChallengeInvitationBundle\Admin\InvitationAdmin
+        arguments: [~, ChallengeInvitationBundle\Entity\Invitation, ChallengeInvitationBundle:InvitationAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Invitation }
+        public: true
