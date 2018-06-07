@@ -17,8 +17,9 @@ class InvitationAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('description')
-            ->add('date')
+            ->add('status')
+            ->add('sender.pseudoName')
+            ->add('invited.pseudoName')
         ;
     }
 
@@ -26,8 +27,9 @@ class InvitationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('description')
-            ->add('date')
+            ->add('sender.pseudoName')
+            ->add('invited.pseudoName')
+            ->add('status')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -44,18 +46,12 @@ class InvitationAdmin extends AbstractAdmin
             ->with('Who?')
                 ->add('sender', EntityType::class, [
                     'class' => User::class,
-                    'choice_label' => 'name',
+                    'choice_label' => 'Id name',
                 ])
                 ->add('invited', EntityType::class, [
                     'class' => User::class,
-                    'choice_label' => 'name',
+                    'choice_label' => 'Id name',
                 ])
-            ->end()
-            ->with('What?')
-                ->add('description', TextType::class)
-            ->end()
-            ->with('When?')
-                ->add('date')
             ->end()
         ;
     }
@@ -64,8 +60,9 @@ class InvitationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('description')
-            ->add('date')
+            ->add('sender.pseudoName')
+            ->add('invited.pseudoName')
+            ->add('status')
         ;
     }
 }

@@ -24,9 +24,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="pseudoName", type="string", length=255, unique=true)
      */
-    private $name;
+    private $pseudoName;
 
     /**
      * @param int $id
@@ -45,24 +45,24 @@ class User
     }
 
     /**
-     * @param string $name
+     * @param string $pseudoName
      */
-    public function setName($name)
+    public function setPseudoName($pseudoName)
     {
-        $this->name = $name;
+        $this->pseudoName = $pseudoName;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getPseudoName()
     {
-        return $this->name;
+        return $this->pseudoName;
     }
 
     public function __toString()
     {
-        return $this->getName();
+        return ''.$this->getPseudoName();
     }
 }
 

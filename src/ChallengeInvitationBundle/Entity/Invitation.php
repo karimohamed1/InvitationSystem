@@ -3,6 +3,7 @@
 namespace ChallengeInvitationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Invitation
@@ -12,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invitation
 {
+    /**
+     * Invitation constructor.
+     */
+    public function __construct()
+    {
+        $this->status = 'Pending';
+    }
+
     /**
      * @var int
      *
@@ -32,18 +41,10 @@ class Invitation
     private $invited;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="status", type="string", nullable=true, options={"default" : "Pending"})
+     * @Assert\Choice({"Pending", "Accepted", "Declined"})
      */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime", nullable=true)
-     */
-    private $date;
+    private $status;
 
     /**
      * @param int $id
@@ -96,40 +97,24 @@ class Invitation
     }
 
     /**
-     * @param string $description
+     * @return mixed
      */
-    public function setDescription($description)
+    public function getStatus()
     {
-        $this->description = $description;
+        return $this->status;
     }
 
     /**
-     * @return string
+     * @param mixed $status
      */
-    public function getDescription()
+    public function setStatus($status)
     {
-        return $this->description;
-    }
-
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
+        $this->status = $status;
     }
 
     public function __toString()
     {
-        return $this->getSender().' is inviting '.$this->getInvited().' for a '.$this->getDescription();
+        return 'A '. $this->getStatus() . 'invitation from ' . $this->getSender() . ' to '.$this->getInvited();
     }
 }
 

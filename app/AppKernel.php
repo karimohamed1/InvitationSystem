@@ -24,6 +24,9 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new ChallengeInvitationBundle\ChallengeInvitationBundle(),
             new ChallengeUserBundle\ChallengeUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
