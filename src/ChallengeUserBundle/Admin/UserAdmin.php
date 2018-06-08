@@ -15,7 +15,6 @@ class UserAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('pseudoName')
         ;
     }
 
@@ -23,7 +22,6 @@ class UserAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('pseudoName')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -37,7 +35,7 @@ class UserAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('pseudoName', TextType::class)
+            ->add('id', TextType::class)
         ;
     }
 
@@ -45,7 +43,6 @@ class UserAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('pseudoName')
         ;
     }
 }

@@ -16,43 +16,53 @@ class InvitationController extends FOSRestController {
     /**
      * @Rest\Get("/all")
      */
-    public function getActionAll()
+    public function getAllAction()
     {
-        $restresult = $this->getDoctrine()->getRepository('ChallengeInvitationBundle:Invitation')->findall();
-        if ($restresult === null) {
-            return new View("There are currently no invitations", Response::HTTP_NOT_FOUND);
-        }
-        return $restresult;
+        $allInvitations = $this->getDoctrine()
+            ->getRepository('ChallengeInvitationBundle:Invitation')
+            ->findall();
+        return $allInvitations ? $allInvitations : array();
     }
 
     /**
-     * @Rest\Post("/create")
+     * @Rest\Get("/sentBy/{senderId}")
      */
-    public function invite(Request $request)
+    public function getSentByAction($senderId)
     {
-        $senderPseudoName = $request->get('senderPseudoName');
-        $invitedPseudoName = $request->get('invitedPseudoName');
-        if(empty($senderPseudoName) || empty($invitedPseudoName) || !(isset($senderPseudoName) && isset($invitedPseudoName)))
-        {
-            return new View("The sender or the invited was not provided", Response::HTTP_NOT_ACCEPTABLE);
-        }
-        $sender = $this->getDoctrine()->getRepository('ChallengeUserBundle:User')->findOneBy(['pseudoName' => $senderPseudoName]);
-        $invited = $this->getDoctrine()->getRepository('ChallengeUserBundle:User')->findOneBy(['pseudoName' => $invitedPseudoName]);
-        if ($sender === null) {
-            return new View("No user exists with the pseudo name ".$senderPseudoName, Response::HTTP_NOT_FOUND);
-        }
-        if ($invited === null) {
-            return new View("No user exists with the pseudo name ".$invitedPseudoName, Response::HTTP_NOT_FOUND);
+        $response = array();
+        $sender = $this->getDoctrine()
+            ->getRepository('ChallengeUserBundle:User')
+            ->find($senderId);
+        if($sender === null){
+            $response["status"] = "error";
+            $response["reason"] = "No user with the id $sender";
+            return $response;
         }
 
-        $invitation = new Invitation();
-        $invitation->setSender($sender);
-        $invitation->setInvited($invited);
+        $invitations = $this->getDoctrine()
+            ->getRepository('ChallengeInvitationBundle:Invitation')
+            ->findBy(array('sender' => $sender));
+        return $invitations ? $invitations : array();
+    }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($invitation);
-        $em->flush();
-        return new View("Invitation Added Successfully", Response::HTTP_OK);
+    /**
+     * @Rest\Get("/receivedBy/{invitedId}")
+     */
+    public function getReceivedByAction($invitedId)
+    {
+        $response = array();
+        $invited = $this->getDoctrine()
+            ->getRepository('ChallengeUserBundle:User')
+            ->find($invitedId);
+        if($invited === null){
+            $response["status"] = "error";
+            $response["reason"] = "No user with the id $invitedId";
+            return $response;
+        }
+
+        $invitations = $this->getDoctrine()
+            ->getRepository('ChallengeInvitationBundle:Invitation')
+            ->findBy(array('invited' => $invited));
+        return $invitations ? $invitations : array();
     }
 }
-

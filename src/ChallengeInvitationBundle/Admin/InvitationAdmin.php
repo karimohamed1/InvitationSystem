@@ -17,9 +17,9 @@ class InvitationAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
+            ->add('sender.id')
+            ->add('invited.id')
             ->add('status')
-            ->add('sender.pseudoName')
-            ->add('invited.pseudoName')
         ;
     }
 
@@ -27,8 +27,8 @@ class InvitationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('sender.pseudoName')
-            ->add('invited.pseudoName')
+            ->add('sender.id')
+            ->add('invited.id')
             ->add('status')
             ->add('_action', null, [
                 'actions' => [
@@ -43,16 +43,14 @@ class InvitationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Who?')
-                ->add('sender', EntityType::class, [
-                    'class' => User::class,
-                    'choice_label' => 'Id name',
-                ])
-                ->add('invited', EntityType::class, [
-                    'class' => User::class,
-                    'choice_label' => 'Id name',
-                ])
-            ->end()
+            ->add('sender', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'ID',
+            ])
+            ->add('invited', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'Id',
+            ])
         ;
     }
 
@@ -60,8 +58,8 @@ class InvitationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('sender.pseudoName')
-            ->add('invited.pseudoName')
+            ->add('sender.id')
+            ->add('invited.id')
             ->add('status')
         ;
     }

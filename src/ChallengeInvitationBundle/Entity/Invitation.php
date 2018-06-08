@@ -42,7 +42,7 @@ class Invitation
 
     /**
      * @ORM\Column(name="status", type="string", nullable=true, options={"default" : "Pending"})
-     * @Assert\Choice({"Pending", "Accepted", "Declined"})
+     * @Assert\Choice({"Pending", "Accepted", "Declined", "Canceled"})
      */
     private $status;
 
