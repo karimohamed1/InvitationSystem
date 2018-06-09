@@ -10,6 +10,7 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <env name="DATABASE_URL" value="mysql://root:rootPassword@localhost/invitationSystemTestDB" />
     </php>
 
     <testsuites>

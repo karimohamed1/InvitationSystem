@@ -22,9 +22,11 @@
         ]
     },
     "require": {
-        "php": ">=5.5.9",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/orm": "^2.5",
+        "php": ">=7",
+        "doctrine/doctrine-bundle": "^1.8",
+        "doctrine/orm": "2.5.6",
+        "doctrine/annotations": "1.4.*",
+        "doctrine/dbal": "2.5.12",
         "friendsofsymfony/rest-bundle": "^2.3",
         "incenteev/composer-parameter-handler": "^2.0",
         "jms/serializer-bundle": "^2.4",
@@ -42,9 +44,10 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "sensio/generator-bundle": "^3.0",
         "symfony/maker-bundle": "^1.5",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "*"
     },
     "scripts": {
         "symfony-scripts": [
@@ -63,7 +66,11 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "platform": {
+            "php": "7.2.5"
+        }
     },
     "extra": {
         "symfony-app-dir": "app",
