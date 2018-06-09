@@ -42,7 +42,7 @@ class DataFixtureTestCase extends WebTestCase
 
     protected static function runCommand($command)
     {
-        $command = sprintf('%s', $command);
+        $command = sprintf('%s --quiet', $command);
 
         return self::getApplication()->run(new StringInput($command));
     }

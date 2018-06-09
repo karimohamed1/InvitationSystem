@@ -56,9 +56,12 @@ class UserController extends FOSRestController {
         $existingInvitation = $this->getDoctrine()
             ->getRepository('ChallengeInvitationBundle:Invitation')
             ->findOneBy(array('sender' => $sender, 'invited' => $invited, 'status' => 'Pending'));
-        if($existingInvitation){
+        $existingEquivalentInvitation = $this->getDoctrine()
+            ->getRepository('ChallengeInvitationBundle:Invitation')
+            ->findOneBy(array('sender' => $invited, 'invited' => $sender, 'status' => 'Pending'));
+        if($existingInvitation || $existingEquivalentInvitation ){
             $response["status"] = "error";
-            $response["reason"] = "An invitation has already been sent";
+            $response["reason"] = "A pending invitation exists already";
             return $response;
         }
 

@@ -1,12 +1,12 @@
 challenge_user:
     resource: "@ChallengeUserBundle/Controller/"
     type:     annotation
-    prefix:   /user
+    prefix:   /api/user
 
 challenge_invitation:
     resource: "@ChallengeInvitationBundle/Controller/"
     type:     annotation
-    prefix:   /invitation
+    prefix:   /api/invitation
 
 app:
     resource: '@AppBundle/Controller/'
